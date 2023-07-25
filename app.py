@@ -42,6 +42,7 @@ def scrape_data_from_all_pages(base_url, selected_classes, total_pages):
 
 
 
+
 # Function to get available classes from the provided URL
 def get_available_classes(url):
     try:
