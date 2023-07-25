@@ -22,6 +22,24 @@ def scrape_data(url, selected_classes):
         st.error(f"Error: {e}")
         return None
 
+
+
+# Function to get available classes from the provided URL
+def get_available_classes(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        classes = set(elem.get("class") for elem in soup.find_all(class_=True))
+        return [cls for cls in classes if cls]
+
+    except Exception as e:
+        st.error(f"Error fetching available classes: {e}")
+        return []
+
+
+
+
 # Streamlit web app
 def main():
     st.title("Web Scraping App")
