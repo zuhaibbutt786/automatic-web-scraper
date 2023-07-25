@@ -96,7 +96,7 @@ def main():
 
                 # Create and download CSV file
                 csv_file = df.to_csv(index=False)
-                st.download_button(label="Download CSV", data=csv_file, file_name="scraped_data.csv", mime="text/csv")
+                st.download_button(label="Download CSV", data=csv_file, file_name="scraped_data.csv", mime="text/csv",key="csv-download")
             else:
                 st.warning("No data scraped.")
         else:
