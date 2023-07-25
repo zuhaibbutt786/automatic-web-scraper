@@ -5,8 +5,9 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from itertools import chain
 
-# Function to scrape data from a given URL and extract specified classes
-def scrape_data(url, selected_classes):
+
+# Function to scrape data from a given URL and extract specified classes from a single page
+def scrape_data_from_single_page(url, selected_classes):
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -22,6 +23,7 @@ def scrape_data(url, selected_classes):
     except Exception as e:
         st.error(f"Error: {e}")
         return None
+
 
 
 
