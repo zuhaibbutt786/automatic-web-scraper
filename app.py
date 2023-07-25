@@ -3,6 +3,8 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+from itertools import chain
+
 
 # Function to scrape data from a given URL and extract specified classes
 def scrape_data(url, selected_classes):
@@ -24,19 +26,19 @@ def scrape_data(url, selected_classes):
 
 
 
+
 # Function to get available classes from the provided URL
 def get_available_classes(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
-        classes = set(elem.get("class") for elem in soup.find_all(class_=True))
-        return [cls for cls in classes if cls]
+        classes = set(chain.from_iterable(elem.get("class") for elem in soup.find_all(class_=True) if elem.get("class")))
+        return list(classes)
 
     except Exception as e:
         st.error(f"Error fetching available classes: {e}")
         return []
-
 
 
 
