@@ -23,6 +23,25 @@ def scrape_data(url, selected_classes):
         st.error(f"Error: {e}")
         return None
 
+
+
+# Function to scrape data from a given URL and extract specified classes from all pages
+def scrape_data_from_all_pages(base_url, selected_classes, total_pages):
+    all_data = {}
+    
+    for page in range(1, total_pages + 1):
+        url = f"{base_url}?page={page}"
+        page_data = scrape_data_from_single_page(url, selected_classes)
+        if page_data:
+            for class_name, values in page_data.items():
+                all_data.setdefault(class_name, []).extend(values)
+    
+    return all_data
+
+
+
+
+
 # Function to get available classes from the provided URL
 def get_available_classes(url):
     try:
@@ -85,9 +104,12 @@ def main():
     available_classes = get_available_classes(url)
     selected_classes = st.multiselect("Select classes to scrape:", available_classes)
 
-    if st.button("Scrape"):
+ if st.button("Scrape"):
         if url and selected_classes:
-            data = scrape_data(url, selected_classes)
+            # Check if total pages is specified, else default to 1
+            total_pages = int(st.number_input("Total Pages", min_value=1, value=1))
+
+            data = scrape_data_from_all_pages(url, selected_classes, total_pages)
 
             if data:
                 # Convert data to a DataFrame and create a CSV file
@@ -96,7 +118,7 @@ def main():
 
                 # Create and download CSV file
                 csv_file = df.to_csv(index=False)
-                st.download_button(label="Download CSV", data=csv_file, file_name="scraped_data.csv", mime="text/csv",key="csv-download")
+                st.download_button(label="Download CSV", data=csv_file, file_name="scraped_data.csv", mime="text/csv", key="csv-download")
             else:
                 st.warning("No data scraped.")
         else:
