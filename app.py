@@ -3,6 +3,7 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+from itertools import chain
 
 # Function to scrape data from a given URL and extract specified classes
 def scrape_data(url, selected_classes):
