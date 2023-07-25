@@ -90,6 +90,13 @@ def tips():
     st.write("4. Test the app with different websites to ensure it works as expected.")
     st.write("5. Regularly check and update the scraping code, as website structures may change.")
 
+def contact():
+    st.header("Contact for data science projects")
+    st.write("✔ Email: zuhaibbutt3@gmail.com")
+    st.write("✔ Linkedin: https://www.linkedin.com/in/zuhaib-hussain-butt-6628141a4/")
+    st.write("✔ Whatsapp: +923167609216")
+
+
 # Streamlit web app
 def main():
     introduction()
@@ -99,6 +106,8 @@ def main():
     how_it_works()
     st.write("----")
     tips()
+    st.write("----")
+    contact()
     st.write("----")
 
     # User input: URL and classes to scrape
