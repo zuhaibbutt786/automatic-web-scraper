@@ -104,7 +104,7 @@ def main():
     available_classes = get_available_classes(url)
     selected_classes = st.multiselect("Select classes to scrape:", available_classes)
 
-   if st.button("Scrape"):
+    if st.button("Scrape"):
         if url and selected_classes:
             # Check if total pages is specified, else default to 1
             total_pages = int(st.number_input("Total Pages", min_value=1, value=1))
@@ -126,3 +126,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
